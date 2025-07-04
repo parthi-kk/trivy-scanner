@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Run Trivy Scan on nginx:latest
-        uses: aquasecurity/trivy-action@v0.31.0         # ✅ Using v0.31.0
+        uses: aquasecurity/trivy-action@v0.31.0        # ✅ Using v0.31.0
         with:
           image-ref: 'nginx:latest'                     # ✅ Public image
           format: 'sarif'                                # ✅ Report in SARIF format
