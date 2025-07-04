@@ -1,7 +1,7 @@
 name: Trivy Scan on Public Docker Image
 
 on:
-  workflow_dispatch:        # Manual trigger
+  workflow_dispatch:          # Allows manual trigger
   push:
     branches:
       - main
@@ -12,12 +12,12 @@ jobs:
 
     steps:
       - name: Run Trivy Scan on nginx:latest
-        uses: aquasecurity/trivy-action@v0.13.1
+        uses: aquasecurity/trivy-action@v0.31.0         # ✅ Using v0.31.0
         with:
-          image-ref: 'nginx:latest'              # Replace with any public image
-          format: 'sarif'                        # SARIF report format
-          output: 'trivy-results.sarif'          # Output file
-          exit-code: '1'                         # Fail on CRITICAL/HIGH
+          image-ref: 'nginx:latest'                     # ✅ Public image
+          format: 'sarif'                                # ✅ Report in SARIF format
+          output: 'trivy-results.sarif'                  # ✅ Output filename
+          exit-code: '1'                                 # ✅ Fail on CRITICAL/HIGH
           severity: 'CRITICAL,HIGH'
 
       - name: Upload SARIF Report to GitHub Security
@@ -25,8 +25,8 @@ jobs:
         with:
           sarif_file: trivy-results.sarif
 
-      - name: Upload SARIF as Artifact (Optional)
-        uses: actions/upload-artifact@v3
+      - name: Upload SARIF as Artifact
+        uses: actions/upload-artifact@v4                # ✅ Fixed to v4
         with:
           name: trivy-scan-report
           path: trivy-results.sarif
